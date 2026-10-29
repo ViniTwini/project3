@@ -1,3 +1,27 @@
-*.pyc
-/venv
-/env
+# Байт-код, оптимизированные файлы
+__pycache__/
+*.py[cod]
+
+# Виртуальные окружения
+venv/
+.venv
+
+# Файлы окружения и переменные
+.env
+*.env
+
+# Артефакты дистрибутивов и упаковки
+dist/
+*.egg-info/
+
+# Файлы покрытия, кэши и локальные настройки
+.coverage
+*.py,cover
+.cache/
+
+# Настройки IDE (PyCharm, VS Code)
+.idea/
+.vscode/
+
+# Контрольные точки Jupyter Notebook
+.ipynb_checkpoints
