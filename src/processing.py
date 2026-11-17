@@ -1,17 +1,22 @@
 def filter_by_state(items, state='EXECUTED'):
-    result = []
+    result = [] #создаем пустой список
     for item in items:
-        current_state = item.get('state')
-        if current_state == state:
+        current_state = item.get('state') #получаем значение state
+        if current_state == state: #сравниваем значение с требованием
             result.append(item)
     return result
 
+'''
+Функция,которая возвращает новый список словарей,содержащих ключ
+'''
+
+
 from datetime import datetime
 
-def sort_by_date_verbose(items, reverse=True):
-    prepared = []
+def sort_by_date(items, reverse=True):
+    prepared = [] #создаем пустой список
     for item in items:
-        raw = item.get('date')
+        raw = item.get('date') #получаем значения дат для дальнейшей сортировки
         if isinstance(raw, datetime):
             dt = raw
         elif isinstance(raw, str):
@@ -20,7 +25,7 @@ def sort_by_date_verbose(items, reverse=True):
                     dt = datetime.strptime(raw, fmt)
                     break
                 except ValueError:
-                    continue
+                    continue #проверяем дату по требуемым условиям
             else:
                 raise ValueError(f"Не удалось распознать дату: {raw!r}")
         else:
@@ -32,3 +37,5 @@ def sort_by_date_verbose(items, reverse=True):
 
     # Возвращаем только словари
     return [item for _, item in prepared]
+'''
+Функция,сортирующая список по дате'''
