@@ -1,31 +1,34 @@
-def filter_by_state(items, state='EXECUTED'):
-    result = [] #создаем пустой список
+from datetime import datetime
+from typing import Any
+
+
+def filter_by_state(items: list[dict[str, Any]], state: str = "EXECUTED") -> list[dict[str, Any]]:
+    result = []  # создаем пустой список
     for item in items:
-        current_state = item.get('state') #получаем значение state
-        if current_state == state: #сравниваем значение с требованием
+        current_state = item.get("state")  # получаем значение state
+        if current_state == state:  # сравниваем значение с требованием
             result.append(item)
     return result
 
-'''
+
+"""
 Функция,которая возвращает новый список словарей,содержащих ключ
-'''
+"""
 
 
-from datetime import datetime
-
-def sort_by_date(items, reverse=True):
-    prepared = [] #создаем пустой список
+def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict[str, Any]]:
+    prepared = []  # создаем пустой список
     for item in items:
-        raw = item.get('date') #получаем значения дат для дальнейшей сортировки
+        raw = item.get("date")  # получаем значения дат для дальнейшей сортировки
         if isinstance(raw, datetime):
             dt = raw
         elif isinstance(raw, str):
-            for fmt in ('%Y-%m-%d', '%Y-%m-%dT%H:%M:%S', '%Y-%m-%d %H:%M:%S'):
+            for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S"):
                 try:
                     dt = datetime.strptime(raw, fmt)
                     break
                 except ValueError:
-                    continue #проверяем дату по требуемым условиям
+                    continue  # проверяем дату по требуемым условиям
             else:
                 raise ValueError(f"Не удалось распознать дату: {raw!r}")
         else:
@@ -37,5 +40,7 @@ def sort_by_date(items, reverse=True):
 
     # Возвращаем только словари
     return [item for _, item in prepared]
-'''
-Функция,сортирующая список по дате'''
+
+
+"""
+Функция,сортирующая список по дате"""
