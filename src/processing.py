@@ -3,6 +3,13 @@ from typing import Any
 
 
 def filter_by_state(items: list[dict[str, Any]], state: str = "EXECUTED") -> list[dict[str, Any]]:
+    """
+    Сортирует словари из полученного списка в новый список со словарями по значению state.
+
+    Item - получаемый список
+    State - параметр отбора
+    Result - обновленный список словарей,отобранных по заданному параметру
+    """
     result = []  # создаем пустой список
     for item in items:
         current_state = item.get("state")  # получаем значение state
@@ -10,13 +17,10 @@ def filter_by_state(items: list[dict[str, Any]], state: str = "EXECUTED") -> lis
             result.append(item)
     return result
 
-
-"""
-Функция,которая возвращает новый список словарей,содержащих ключ
-"""
-
-
 def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict[str, Any]]:
+    """
+    Функция,сортирующая список словарей по дате в порядке убывания
+    """
     prepared = []  # создаем пустой список
     for item in items:
         raw = item.get("date")  # получаем значения дат для дальнейшей сортировки
