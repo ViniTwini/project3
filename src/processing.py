@@ -46,5 +46,4 @@ def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict
     return [item for _, item in prepared]
 
 
-"""
-Функция,сортирующая список по дате"""
+
