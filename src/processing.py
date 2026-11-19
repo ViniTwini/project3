@@ -17,6 +17,7 @@ def filter_by_state(items: list[dict[str, Any]], state: str = "EXECUTED") -> lis
             result.append(item)
     return result
 
+
 def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict[str, Any]]:
     """
     Функция,сортирующая список словарей по дате в порядке убывания
@@ -44,6 +45,3 @@ def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict
 
     # Возвращаем только словари
     return [item for _, item in prepared]
-
-
-
