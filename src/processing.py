@@ -27,7 +27,7 @@ def sort_by_date(items: list[dict[str, Any]], reverse: bool = True) -> list[dict
         if isinstance(raw, datetime):
             dt = raw
         elif isinstance(raw, str):
-            for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S"):
+            for fmt in ("%Y-%m-%d", "%Y-%m-%dT%H:%M:%S", "%Y-%m-%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S.%f"):
                 try:
                     dt = datetime.strptime(raw, fmt)
                     break
