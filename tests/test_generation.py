@@ -23,7 +23,6 @@ SAMPLE = [
 ]
 
 
-
 def test_filter_by_currency_usd():
     '''Проверка на работу функции'''
     res = list(filter_by_currency(SAMPLE, "USD"))
@@ -46,7 +45,6 @@ def test_filter_by_currency_missing_keys():
     '''проверка, что .get() спасает от KeyError'''
     broken = [{"id": 999}]
     assert list(filter_by_currency(broken, "USD")) == []
-
 
 
 def test_transaction_descriptions():

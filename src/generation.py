@@ -1,11 +1,13 @@
 def filter_by_currency(transactions, currency):
     '''Функция для поочередной выдаче транзакций'''
-    return filter(lambda t: t.get("operationAmount", {}).get("currency", {}).get("name") == currency,transactions)
+    return filter(lambda t: t.get("operationAmount", {}).get("currency", {}).get("name") == currency, transactions)
+
 
 def transaction_descriptions(transactions):
     '''Генератор для возвращения каждой операции по очереди'''
     for transaction in transactions:
         yield transaction["description"]
+
 
 def card_number_generator(start, end):
     '''Генератор для номеров кард'''
