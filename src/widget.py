@@ -1,31 +1,41 @@
 from datetime import datetime
 from src.masks import get_mask_account, get_mask_card_number
 
-def mask_account_card(account_info: str) -> str:
-    account_info = account_info.strip()
 
-    # Определяем тип по наличию слова «счет»
-    is_account = "счет" in account_info.lower()
+def mask_account_card(card_info: str) -> str:
+    """Маскирует карту или счёт в строке вида 'Visa Platinum 7000792289606361'."""
+    if not isinstance(card_info, str) or not card_info.strip():
+        raise ValueError("Некорректный ввод: ожидается непустая строка")
 
-    # Находим номер как часть после последнего пробела
-    last_space_index = account_info.rfind(" ")
-    if last_space_index == -1:
-        # Нет пробела — формат некорректен, возвращаем как есть
-        return account_info
+    parts = card_info.split()
+    if len(parts) < 2:
+        raise ValueError("Некорректный ввод: нет номера после названия")
 
-    prefix = account_info[:last_space_index]
-    number = account_info[last_space_index + 1:]
+    number = parts[-1]
+    label = " ".join(parts[:-1])
 
-    # Применяем нужную функцию маскировки
-    masked_number = (get_mask_account(number) if is_account else get_mask_card_number(number))
+    if len(number) == 16 and number.isdigit():  # карта
+        return f"{label} {get_mask_card_number(number)}"
+    if len(number) == 20 and number.isdigit():  # счёт
+        return f"{label} {get_mask_account(number)}"
 
-    return f"{prefix} {masked_number}"
+    raise ValueError(f"Не удалось распознать номер: {number}")
 
-def get_date(only_date: str) -> str:
-    '''Принимает строку с форматом "2024-03-11T02:26:18.671407" и вовзращает строку в формате "ДД.ММ.ГГГГ" '''
-    dt = datetime.strptime(only_date, '%Y-%m-%dT%H:%M:%S.%f')
-    return dt.strftime('%d.%m.%Y')
 
-print(mask_account_card('Счет 64686473678894779589'))
+def get_date(date_string: str) -> str:
+    """Переводит дату из формата '2024-03-11T02:26:18.671407' в '11.03.2024'."""
+    if not isinstance(date_string, str) or not date_string:
+        raise ValueError("Некорректная дата")
+
+    for fmt in ("%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S"):
+        try:
+            dt = datetime.strptime(date_string, fmt)
+            return dt.strftime("%d.%m.%Y")
+        except ValueError:
+            continue
+
+    raise ValueError(f"Не удалось распознать дату: {date_string}")
+
+
+print(mask_account_card("Счет 64686473678894779589"))
 print(get_date("2024-03-11T02:26:18.671407"))
-
