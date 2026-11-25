@@ -15,8 +15,8 @@ dist/
 *.egg-info/
 
 # Файлы покрытия, кэши и локальные настройки
-.coverage
-*.py,cover
+# .coverage
+*.cover
 .cache/
 
 # Настройки IDE (PyCharm, VS Code)
