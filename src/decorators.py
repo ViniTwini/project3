@@ -1,10 +1,11 @@
-import functools
+from functools import wraps
+from typing import Callable, Any, Optional
 
 
-def log(filename=None):
-    def decorator(func):
-        @functools.wraps(func)
-        def wrapper(*args, **kwargs):
+def log(filename: Optional [str] = None) -> Callable[[Callable],Callable]:
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args: Any, **kwargs: Any) -> Any:
             try:
                 result = func(*args, **kwargs)
                 msg = f"{func.__name__} ok"
