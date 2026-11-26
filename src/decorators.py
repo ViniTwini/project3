@@ -1,5 +1,6 @@
 import functools
 
+
 def log(filename=None):
     def decorator(func):
         @functools.wraps(func)
